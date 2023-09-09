@@ -144,5 +144,16 @@ export const METAMASK = {
 			localStorage.setItem('wallet', accounts[0]);
 		}
 		return true;
+	},
+	async get_number_token_minted() {
+		try {
+			
+			const minted = await window.NFT.getCounter();
+			console.log(window.ethers.toNumber(minted));
+			return window.ethers.toNumber(minted);
+		} catch (e) {
+			console.log(e)
+			return 0;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 import {
 	create_element,
-	render_icon
+	render_icon,
+	METAMASK
 } from '../helpers.js';
 
 let template = await create_element('section');
@@ -102,6 +103,8 @@ export async function render() {
 	template.querySelector('.container').appendChild(await properties_list());
 	template.appendChild(await location());
 	
+	await METAMASK.get_number_token_minted();
+	console.log('aaa')
 	return template;
 }
 
