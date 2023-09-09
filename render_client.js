@@ -10,12 +10,11 @@ module.exports = {
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 			<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.svg">
 			<link rel="stylesheet" href="/assets/css/main.css">
+      <script src="https://cdn.jsdelivr.net/npm/@metamask/sdk@0.6.1/dist/browser/umd/metamask-sdk.min.js"></script>
     </head>
     <body>
-      <main>
-
-      </main>
-      <script type="module" src="/assets/js/main.js"></script>
+      <main id="app"></main>
+      <script type="module" src="/assets/js/main.js" defer></script>
     </body>
     </html>
     `;

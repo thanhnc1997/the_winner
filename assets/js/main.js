@@ -3,54 +3,42 @@ import {
 } from './helpers.js';
 
 const pathname = location.pathname;
-const main = document.querySelector('main');
 
-async function init_app() {
-	let app = await create_element('div');
-	app.setAttribute('id', 'app');
-	
-	let render = {
-		async welcome() {
-			let block = await import('./pages/welcome_page.js');
-			app.appendChild(await block.render());
-			main.appendChild(app);
-		},
-		async home() {
-			let block = await import('./pages/home_page.js');
-			app.appendChild(await block.render());
-			main.appendChild(app);
-		},
-		async property_detail() {
-			let block = await import('./pages/property_detail_page.js');
-			app.appendChild(await block.render());
-			main.appendChild(app);
-		},
-		async inventory() {
-			let block = await import('./pages/inventory_page.js');
-			app.appendChild(await block.render());
-			main.appendChild(app);
-		},
-		async inventory_detail() {
-			let block = await import('./pages/inventory_detail_page.js');
-			app.appendChild(await block.render());
-			main.appendChild(app);
-		}
-	}
-	
-	if (pathname == '/') {
-		// render.welcome();
-		render.home();
-	}
-	
-	if (pathname.includes('/pd=')) {
-		render.property_detail();
-	}
-	
-	if (pathname == '/inventory') render.inventory();
-	
-	if (pathname.includes('/inventory/id=')) {
-		render.inventory_detail();
+const draw = async (blocks) => {
+	let app = document.getElementById('app');
+	app.innerHTML = '';
+	for (const block of blocks) {
+		const _block = await block;
+		if(_block )app.appendChild(_block);
 	}
 }
 
-init_app();
+const render = {
+	async welcome() {
+		await draw([
+			(await import('./pages/welcome_page.js')).render(this),
+		]);
+	},
+	async home() {
+		await draw([
+			(await import('./pages/home_page.js')).render(this),
+		]);
+	},
+	async property_detail() {
+		await draw([
+			(await import('./pages/property_detail_page.js')).render(this),
+		]);
+	},
+	async inventory() {
+		await draw([
+			(await import('./pages/inventory_page.js')).render(this),
+		]);
+	},
+	async inventory_detail() {
+		await draw([
+			(await import('./pages/inventory_detail_page.js')).render(this),
+		]);
+	}
+}
+
+render.welcome();

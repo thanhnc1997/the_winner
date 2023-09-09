@@ -1,4 +1,4 @@
-export async function create_element(e) {
+export function create_element(e) {
 	let div = document.createElement(e);
 	return div;
 }
@@ -122,5 +122,27 @@ export async function get_local_storage(params) {
 	if (localStorage.getItem(name)) {
 		if (callback) await callback();
 		return JSON.parse(localStorage.getItem(name));
+	}
+}
+
+
+
+// METAMASK
+
+export const METAMASK = {
+	async connect({ start_connect }) {
+		let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+		if (!accounts.length) {
+			if (!start_connect) return;
+			try {
+				accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+			} catch (e) {
+				return;
+			}
+		}
+		if (localStorage.getItem('wallet') != accounts[0]) {
+			localStorage.setItem('wallet', accounts[0]);
+		}
+		return true;
 	}
 }
